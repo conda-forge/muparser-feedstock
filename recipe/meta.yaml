@@ -21,10 +21,11 @@ build:
 requirements:
   build:
     - cmake  # [win]
+    - python  # [win]
 
 test:
   commands:
-    - test -f ${PREFIX}/include/muParser.h  # [unix] 
+    - test -f ${PREFIX}/include/muParser.h  # [unix]
     - test -f ${PREFIX}/lib/libmuparser.so  # [linux]
     - test -f ${PREFIX}/lib/libmuparser.dylib  # [osx]
 
