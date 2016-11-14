@@ -33,7 +33,6 @@ conda search muparser --channel conda-forge
 ```
 
 
-
 About conda-forge
 =================
 
