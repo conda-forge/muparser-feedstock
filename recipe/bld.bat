@@ -1,7 +1,7 @@
 rem  @echo off
 
 @rem See https://bitbucket.org/dbarbier/ot-superbuild
-cp "%RECIPE_DIR%\CMakeLists.txt" .
+copy "%RECIPE_DIR%\CMakeLists.txt" .
 if errorlevel 1 exit 1
 
 mkdir build
@@ -10,11 +10,14 @@ cd build
 set CMAKE_CONFIG="Release"
 
 cmake -LAH -G"NMake Makefiles"                               ^
+    -DCMAKE_BUILD_TYPE=%CMAKE_CONFIG%                        ^
+    -DBUILD_SHARED_LIBS=ON                                   ^
     -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ..
+if errorlevel 1 exit 1
 
-cmake --build . --config %CMAKE_CONFIG% --target ALL_BUILD
-cmake --build . --config %CMAKE_CONFIG% --target INSTALL
-
+nmake
+if errorlevel 1 exit 1
+nmake install
 if errorlevel 1 exit 1
 
 start example1.exe

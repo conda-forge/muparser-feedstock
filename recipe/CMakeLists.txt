@@ -1,5 +1,5 @@
-# Set the minimum version of cmake required to 2.8
-cmake_minimum_required( VERSION 2.8 )
+# Set the minimum version of cmake required to 3.4 (for WINDOWS_EXPORT_ALL_SYMBOLS)
+cmake_minimum_required( VERSION 3.4 )
 
 project(muParser CXX)
 
@@ -32,19 +32,24 @@ set(muparser_headers
     include/muParserTokenReader.h
 )
 
-if(BUILD_SHARED_LIBS)
-    add_definitions(-DMUPARSER_DLL -DMUPARSERLIB_EXPORTS -DSHARED=1)
-else()
-    add_definitions(-DSHARED=0)
-endif()
 if(CMAKE_BUILD_TYPE STREQUAL Release)
-    add_definitions(-DDEBUG=1)
-else()
     add_definitions(-DDEBUG=0)
+else()
+    add_definitions(-DDEBUG=1)
 endif()
 include_directories(include)
 
 add_library(muparser ${muparser_sources})
+
+if(BUILD_SHARED_LIBS)
+    target_compile_definitions(muparser PRIVATE -DMUPARSER_DLL -DMUPARSERLIB_EXPORTS -DSHARED=1 -D_CRT_SECURE_NO_WARNINGS)
+else()
+    target_compile_definitions(muparser PRIVATE -DSHARED=0 -D_CRT_SECURE_NO_WARNINGS)
+endif()
+
+# -DMUPARSERLIB_EXPORTS just exports the C calls - need to do this to get the C++ interface
+# -DMUPARSERLIB_EXPORTS still needed otherwise it won't build
+set_target_properties(muparser PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 
 install(FILES ${muparser_headers}
     DESTINATION include COMPONENT Development
