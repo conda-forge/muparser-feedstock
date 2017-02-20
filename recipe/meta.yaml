@@ -29,6 +29,7 @@ test:
     - test -f ${PREFIX}/include/muParser.h  # [unix]
     - test -f ${PREFIX}/lib/libmuparser.so  # [linux]
     - test -f ${PREFIX}/lib/libmuparser.dylib  # [osx]
+
     - if not exist %PREFIX%\\Library\\include\\muParser.h exit 1  # [win]
     - if not exist %PREFIX%\\Library\\bin\\muparser.dll exit 1  # [win]
 
