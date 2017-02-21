@@ -23,7 +23,7 @@ requirements:
   build:
     - toolchain
     - cmake  # [win]
-    - python {{ environ.get('PY_VER', '') + '*' }}  # [win]
+    - python {{ os.environ.get('PY_VER', '') + '*' }}  # [win]
 
 test:
   commands:
