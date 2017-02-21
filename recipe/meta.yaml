@@ -16,13 +16,14 @@ build:
   features:
     - vc9  # [win and py27]
     - vc10  # [win and py34]
-    - vc14  # [win and py35]
+    - vc14  # [win and py>=35]
+  skip: true  # [win and py36]
 
 requirements:
   build:
     - toolchain
     - cmake  # [win]
-    - python  # [win]
+    - python {{ environ.get('PY_VER', '') + '*' }}  # [win]
 
 test:
   commands:
