@@ -23,9 +23,10 @@ requirements:
   build:
     - toolchain
     - cmake  # [win]
-    - python {{ os.environ.get('PY_VER', '') + '*' }}  # [win]
 
 test:
+  requires:
+    - python {{ os.environ.get('PY_VER', '') + '*' }}  # [win]
   commands:
     - test -f ${PREFIX}/include/muParser.h  # [unix]
     - test -f ${PREFIX}/lib/libmuparser.so  # [linux]
