@@ -16,15 +16,17 @@ build:
   features:
     - vc9  # [win and py27]
     - vc10  # [win and py34]
-    - vc14  # [win and py35]
+    - vc14  # [win and py>=35]
+  skip: true  # [win and py36]
 
 requirements:
   build:
     - toolchain
     - cmake  # [win]
-    - python  # [win]
 
 test:
+  requires:
+    - python {{ os.environ.get('PY_VER', '') + '*' }}  # [win]
   commands:
     - test -f ${PREFIX}/include/muParser.h  # [unix]
     - test -f ${PREFIX}/lib/libmuparser.so  # [linux]
