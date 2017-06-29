@@ -15,7 +15,6 @@ build:
   number: 2
   features:
     - vc9  # [win and py27]
-    - vc10  # [win and py34]
     - vc14  # [win and py>=35]
   skip: true  # [win and py36]
 
@@ -29,10 +28,9 @@ test:
     - python {{ os.environ.get('PY_VER', '') + '*' }}  # [win]
   commands:
     - test -f ${PREFIX}/include/muParser.h  # [unix]
-    - test -f ${PREFIX}/lib/libmuparser.so  # [linux]
-    - test -f ${PREFIX}/lib/libmuparser.dylib  # [osx]
     - if not exist %PREFIX%\\Library\\include\\muParser.h exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\bin\\muparser.dll exit 1  # [win]
+    - python -c "import ctypes; ctypes.cdll[r'${PREFIX}/lib/libmuparser${SHLIB_EXT}']"  # [unix]
+    - python -c "import ctypes; ctypes.cdll[r'%PREFIX%\Library\bin\muparser.dll']"  # [win]
 
 about:
   home: http://muparser.beltoforion.de/
