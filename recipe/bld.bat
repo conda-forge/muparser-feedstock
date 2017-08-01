@@ -2,7 +2,7 @@
 copy "%RECIPE_DIR%\CMakeLists.txt" .
 if errorlevel 1 exit 1
 
-mkdir build && cd build
+mkdir build_ && cd build_
 
 set CMAKE_CONFIG="Release"
 
