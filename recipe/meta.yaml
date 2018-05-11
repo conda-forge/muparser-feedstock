@@ -12,7 +12,7 @@ source:
     - no-console.patch
 
 build:
-  number: 2
+  number: 3
   features:
     - vc9  # [win and py27]
     - vc14  # [win and py>=35]
