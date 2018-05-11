@@ -12,14 +12,11 @@ source:
     - no-console.patch
 
 build:
-  number: 2
-  features:
-    - vc9  # [win and py27]
-    - vc14  # [win and py>=35]
-  skip: true  # [win and py36]
+  number: 4
 
 requirements:
   build:
+    - {{ compiler('cxx') }}
     - toolchain
     - cmake  # [win]
 
