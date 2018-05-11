@@ -12,20 +12,17 @@ source:
     - no-console.patch
 
 build:
-  number: 2
-  features:
-    - vc9  # [win and py27]
-    - vc14  # [win and py>=35]
-  skip: true  # [win and py36]
+  number: 4
 
 requirements:
   build:
-    - toolchain
+    - {{ compiler('cxx') }}
     - cmake  # [win]
 
 test:
   requires:
-    - python {{ os.environ.get('PY_VER', '') + '*' }}  # [win]
+    - python 3.6  # [not (win and vc<14)]
+    - python 2.7  # [win and vc<14]
   commands:
     - test -f ${PREFIX}/include/muParser.h  # [unix]
     - if not exist %PREFIX%\\Library\\include\\muParser.h exit 1  # [win]
