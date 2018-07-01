@@ -6,22 +6,21 @@ package:
 
 source:
   fn: v{{ version }}.tar.gz
-  url: https://github.com/beltoforion/muparser/archive/v{{ version }}.tar.gz 
+  url: https://github.com/beltoforion/muparser/archive/v{{ version }}.tar.gz
   md5: 02dae671aa5ad955fdcbcd3fee313fb7
   patches:
     - no-console.patch
 
 build:
-  number: 2
-  features:
-    - vc9  # [win and py27]
-    - vc14  # [win and py>=35]
+  number: 3
   skip: true  # [win and py36]
 
 requirements:
   build:
-    - toolchain
     - cmake  # [win]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
 
 test:
   requires:
