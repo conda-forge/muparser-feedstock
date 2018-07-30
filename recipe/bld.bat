@@ -8,7 +8,7 @@ set CMAKE_CONFIG="Release"
 
 cmake -LAH -G"NMake Makefiles"                               ^
     -DCMAKE_BUILD_TYPE=%CMAKE_CONFIG%                        ^
-    -DBUILD_SHARED_LIBS=ON                                   ^
+    -DBUILD_SHARED_LIBS=OFF                                  ^
     -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ..
 if errorlevel 1 exit 1
 
