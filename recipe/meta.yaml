@@ -7,32 +7,25 @@ package:
 source:
   fn: v{{ version }}.tar.gz
   url: https://github.com/beltoforion/muparser/archive/v{{ version }}.tar.gz
-  md5: 02dae671aa5ad955fdcbcd3fee313fb7
+  sha256: 0666ef55da72c3e356ca85b6a0084d56b05dd740c3c21d26d372085aa2c6e708
   patches:
     - no-console.patch
 
 build:
-  number: 4
-  skip: true  # [win and py36]
+  number: 5
 
 requirements:
   build:
     - cmake  # [win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-  host:
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
-  host:
 
 test:
-  requires:
-    - python {{ os.environ.get('PY_VER', '') + '*' }}  # [win]
   commands:
     - test -f ${PREFIX}/include/muParser.h  # [unix]
     - if not exist %PREFIX%\\Library\\include\\muParser.h exit 1  # [win]
-    - python -c "import ctypes; ctypes.cdll[r'${PREFIX}/lib/libmuparser${SHLIB_EXT}']"  # [unix]
-    - python -c "import ctypes; ctypes.cdll[r'%PREFIX%\Library\bin\muparser.dll']"  # [win]
+    - conda inspect linkages -p ${PREFIX} muparser  # [not win]
+    - conda inspect objects -p ${PREFIX} muparser  # [osx]
 
 about:
   home: http://muparser.beltoforion.de/
