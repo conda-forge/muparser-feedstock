@@ -8,7 +8,7 @@
 set -xeuo pipefail
 
 FEEDSTOCK_ROOT=$(cd "$(dirname "$0")/.."; pwd;)
-RECIPE_ROOT="${FEEDSTOCK_ROOT}/recipe"
+RECIPE_ROOT=$FEEDSTOCK_ROOT/recipe
 
 docker info
 
@@ -29,9 +29,6 @@ if [ -z "$CONFIG" ]; then
     exit 1
 fi
 
-pip install shyaml
-DOCKER_IMAGE=$(cat "${FEEDSTOCK_ROOT}/.ci_support/${CONFIG}.yaml" | shyaml get-value docker_image.0 condaforge/linux-anvil )
-
 mkdir -p "$ARTIFACTS"
 DONE_CANARY="$ARTIFACTS/conda-forge-build-done-${CONFIG}"
 rm -f "$DONE_CANARY"
@@ -42,7 +39,7 @@ docker run -it \
            -e CONFIG \
            -e BINSTAR_TOKEN \
            -e HOST_USER_ID \
-           $DOCKER_IMAGE \
+           condaforge/linux-anvil \
            bash \
            /home/conda/feedstock_root/.circleci/build_steps.sh
 
