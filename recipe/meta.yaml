@@ -1,4 +1,4 @@
-{% set version = "2.2.5" %}
+{% set version = "2.2.6" %}
 
 package:
   name: muparser
@@ -7,12 +7,12 @@ package:
 source:
   fn: v{{ version }}.tar.gz
   url: https://github.com/beltoforion/muparser/archive/v{{ version }}.tar.gz
-  sha256: 0666ef55da72c3e356ca85b6a0084d56b05dd740c3c21d26d372085aa2c6e708
+  sha256: c124a00e73356204efa21bd2223db4b2a2b8a93cc25d16bae09e4fcaa82b620c
   patches:
     - no-console.patch
 
 build:
-  number: 2005
+  number: 1000
 
 requirements:
   build:
