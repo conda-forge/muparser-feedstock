@@ -1,7 +1,11 @@
 #!/bin/sh
 
-sh ./configure --prefix=$PREFIX
-make lib
-make
-make install
-DYLD_LIBRARY_PATH=lib LD_LIBRARY_PATH=lib ./samples/example1/example1
+mkdir build_ && cd build_
+
+cmake \
+  -DCMAKE_INSTALL_PREFIX=${PREFIX} -DCMAKE_INSTALL_LIBDIR=lib \
+  -DCMAKE_PREFIX_PATH=${PREFIX} \
+  -DCMAKE_INSTALL_RPATH="${PREFIX}/lib" -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON -DCMAKE_MACOSX_RPATH=ON ..
+make install -j${CPU_COUNT}
+./example1
+

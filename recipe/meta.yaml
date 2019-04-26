@@ -1,4 +1,4 @@
-{% set version = "2.2.5" %}
+{% set version = "2.2.6.1" %}
 
 package:
   name: muparser
@@ -7,25 +7,29 @@ package:
 source:
   fn: v{{ version }}.tar.gz
   url: https://github.com/beltoforion/muparser/archive/v{{ version }}.tar.gz
-  sha256: 0666ef55da72c3e356ca85b6a0084d56b05dd740c3c21d26d372085aa2c6e708
+  sha256: d2562853d972b6ddb07af47ce8a1cdeeb8bb3fa9e8da308746de391db67897b3
   patches:
     - no-console.patch
 
 build:
-  number: 2005
+  number: 0
+
+  # Requires c++11 unavailable on vc9
+  skip: true  # [win and vc<14]
 
 requirements:
   build:
-    - cmake  # [win]
+    - cmake
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
 
 test:
   commands:
     - test -f ${PREFIX}/include/muParser.h  # [unix]
+    - test -f ${PREFIX}/lib/libmuparser${SHLIB_EXT}  # [unix]
     - if not exist %PREFIX%\\Library\\include\\muParser.h exit 1  # [win]
-    - conda inspect linkages -p ${PREFIX} muparser  # [not win]
-    - conda inspect objects -p ${PREFIX} muparser  # [osx]
+    - if not exist %PREFIX%\\Library\\lib\\muparser.lib exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\bin\\muparser.dll exit 1  # [win]
 
 about:
   home: http://muparser.beltoforion.de/
