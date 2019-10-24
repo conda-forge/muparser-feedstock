@@ -12,10 +12,11 @@ source:
     - no-console.patch
 
 build:
-  number: 0
-
+  number: 1
   # Requires c++11 unavailable on vc9
   skip: true  # [win and vc<14]
+  run_exports:
+    - {{ pin_subpackage('muparser', max_pin='x.x') }}
 
 requirements:
   build:
