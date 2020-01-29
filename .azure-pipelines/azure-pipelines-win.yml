@@ -61,6 +61,8 @@ jobs:
         updateConda: false
       displayName: Install conda-build and activate environment
 
+    - script: "set Boost_ROOT="
+
     - script: set PYTHONUNBUFFERED=1
 
     # Configure the VM

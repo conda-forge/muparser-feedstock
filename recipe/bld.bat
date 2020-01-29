@@ -1,3 +1,5 @@
+echo "Boost_ROOT=%Boost_ROOT%"
+
 mkdir build_ && cd build_
 
 cmake -LAH -G"NMake Makefiles"                               ^
