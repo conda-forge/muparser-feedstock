@@ -1,4 +1,4 @@
-{% set version = "2.2.6.1" %}
+{% set version = "2.3.0" %}
 
 package:
   name: muparser
@@ -7,12 +7,12 @@ package:
 source:
   fn: v{{ version }}.tar.gz
   url: https://github.com/beltoforion/muparser/archive/v{{ version }}.tar.gz
-  sha256: d2562853d972b6ddb07af47ce8a1cdeeb8bb3fa9e8da308746de391db67897b3
+  sha256: b324c738a6bd5d4c7651e4d0e2a7e6d601b7cb1b8b17d11c097ce2128b772da0
   patches:
     - no-console.patch
 
 build:
-  number: 1
+  number: 0
   # Requires c++11 unavailable on vc9
   skip: true  # [win and vc<14]
   run_exports:
