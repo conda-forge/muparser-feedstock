@@ -23,7 +23,10 @@ requirements:
     - cmake
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-
+  host:
+    - llvm-openmp  # [osx]
+  run:
+    - llvm-openmp  # [osx]
 test:
   commands:
     - test -f ${PREFIX}/include/muParser.h  # [unix]
