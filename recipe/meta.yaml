@@ -8,8 +8,6 @@ source:
   fn: v{{ version }}.tar.gz
   url: https://github.com/beltoforion/muparser/archive/v{{ version }}.tar.gz
   sha256: b076af992551313244fd5796b3ec1f565e7619213cb36e2e1a80d6efb4f4be51
-  patches:
-    - isgraph.patch
 
 build:
   number: 0
