@@ -35,7 +35,7 @@ test:
 about:
   home: http://muparser.beltoforion.de/
   license: MIT
-  license_file: License.txt
+  license_file: LICENSE
   summary: A fast math parser library
 
 extra:
