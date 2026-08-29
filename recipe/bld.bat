@@ -7,5 +7,5 @@ if errorlevel 1 exit 1
 cmake --build . --config Release --target install
 if errorlevel 1 exit 1
 
-ctest -C Release
+ctest --output-on-failure -C Release
 if errorlevel 1 exit 1
