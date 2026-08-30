@@ -1,0 +1,46 @@
+context:
+  version: "2.3.5"
+
+package:
+  name: muparser
+  version: ${{ version }}
+
+source:
+  url: https://github.com/beltoforion/muparser/archive/v${{ version }}.tar.gz
+  sha256: 20b43cc68c655665db83711906f01b20c51909368973116dfc8d7b3c4ddb5dd4
+
+build:
+  number: 1
+
+requirements:
+  build:
+    - cmake
+    - ninja
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib("c") }}
+  host:
+    - if: osx
+      then: llvm-openmp
+  run:
+    - if: osx
+      then: llvm-openmp
+  run_exports:
+    - ${{ pin_subpackage('muparser', upper_bound='x.x') }}
+
+tests:
+  - package_contents:
+      include:
+        - muParser.h
+      lib:
+        - muparser
+
+about:
+  homepage: http://muparser.beltoforion.de/
+  license: MIT
+  license_file: LICENSE
+  summary: A fast math parser library
+
+extra:
+  recipe-maintainers:
+    - jschueller
