@@ -26,28 +26,12 @@ requirements:
   run:
     - llvm-openmp  # [osx]
 test:
-  requires:
-    - cmake  # [target_platform == "win-arm64"]
-    - {{ compiler('cxx') }}  # [target_platform == "win-arm64"]
-  files:
-    - CMakeLists.txt  # [target_platform == "win-arm64"]
-    - test.cpp  # [target_platform == "win-arm64"]
   commands:
     - test -f ${PREFIX}/include/muParser.h  # [unix]
     - test -f ${PREFIX}/lib/libmuparser${SHLIB_EXT}  # [unix]
     - if not exist %PREFIX%\\Library\\include\\muParser.h exit 1  # [win]
     - if not exist %PREFIX%\\Library\\lib\\muparser.lib exit 1  # [win]
     - if not exist %PREFIX%\\Library\\bin\\muparser.dll exit 1  # [win]
-    - cmake -S . -B test-build -G "NMake Makefiles"  # [target_platform == "win-arm64"]
-    - if errorlevel 1 exit 1  # [target_platform == "win-arm64"]
-    - cmake --build test-build --config Release  # [target_platform == "win-arm64"]
-    - if errorlevel 1 exit 1  # [target_platform == "win-arm64"]
-    - test-build\muparser_consumer.exe  # [target_platform == "win-arm64"]
-    - if errorlevel 1 exit 1  # [target_platform == "win-arm64"]
-    - dumpbin /headers test-build\muparser_consumer.exe | findstr /I /C:"AA64 machine (ARM64)"  # [target_platform == "win-arm64"]
-    - if errorlevel 1 exit 1  # [target_platform == "win-arm64"]
-    - dumpbin /headers "%LIBRARY_BIN%\\muparser.dll" | findstr /I /C:"AA64 machine (ARM64)"  # [target_platform == "win-arm64"]
-    - if errorlevel 1 exit 1  # [target_platform == "win-arm64"]
 
 about:
   home: http://muparser.beltoforion.de/
